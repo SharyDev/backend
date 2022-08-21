@@ -15,7 +15,6 @@ app.use(morgan("dev"));
 app.use("/leaders",leaderRouter);
 app.use("/dishes",dishRouter);
 app.use("/promotion",promotionRouter);
-
 app.use(express.static(__dirname + "/public"));
 app.use(bodyParser.json());
 
