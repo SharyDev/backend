@@ -7,7 +7,8 @@ const mongoose = require('mongoose');
 var session = require('express-session');
 var FileStore = require('session-file-store')(session);
 var passport = require('passport');
-var authenticate = require('./authenticate')
+var authenticate = require('./authenticate');
+var bodyParser = require('body-parser');
 var config = require('./config');
 
 
@@ -26,23 +27,39 @@ const connect = mongoose.connect(url);
 
 
 var app = express();
+app.all('*', (req, res, next) => {
+  if (req.secure) {
+    return next();
+  }
+  else {
+    res.redirect(307, 'https://' + req.hostname + ':' + app.get('secPort') + req.url);
+  }
+});
+app.use(session({
+  name: 'session-id',
+  secret: '12345-67890-09876-54321',
+  saveUninitialized: false,
+  resave: false,
+  store: new FileStore()
+}));
 
 
+
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'jade');
+app.use(logger('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended:false}));
 app.use(passport.initialize());
-
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 connect.then((db) => {
   console.log("Connected correctly to server");
 }, (err) => { console.log(err); });
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
 
-app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser('12345-67890-09876-54321'));
+
+//app.use(cookieParser('12345-67890-09876-54321'));
 
 app.use(express.static(path.join(__dirname, 'public')));
 
