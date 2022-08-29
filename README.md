@@ -2,7 +2,7 @@
 	<strong><i>A curated list of backend resources from very basic to advance. Feel free to add new resources!</i></strong>
 </p>
 
-![separator](assets/separator.jpeg)
+![separator](Assets/separator.jpeg)
 
 - [Code Editor](#code-editor)
 - [Code Hosting Platforms](#code-hosting-platforms)
