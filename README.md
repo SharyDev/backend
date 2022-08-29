@@ -1,5 +1,5 @@
 <p align="center">
-	<strong><i>A curated list of backend resources from very basic to advance. Feel free to add new resources!</i></strong>
+	<strong><i>A created list of backend resources from very basic to advance. Feel free to add new resources!</i></strong>
 </p>
 
 ![separator](Assets/separator.jpeg)
